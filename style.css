@@ -1,0 +1,47 @@
+#loadingPage {
+    height: 750px;
+    width: 500px;
+    border: 2px solid black;
+}
+
+img {
+    position: absolute;
+}
+
+#startButton {
+    color: white;
+    background-color: #8a2020;
+    font-family: Verdana red;
+    font-size: larger;
+    height: 50px;
+    width: 100px;
+    font-weight: 200px;
+    position: relative;
+    margin-top: 20px;
+    margin-left: 200px;
+}
+
+h1 {
+    color: #8a2020;
+    font-size: 50px;
+    position: relative;
+    padding-left: 10px;
+    margin-top: 10px;
+    font-family: Verdana red;
+}
+
+h2 {
+    position: relative;
+    text-align: center;
+    font-family: Verdana red;
+}
+
+
+p {
+    position: relative;
+    padding-top: 350px;
+    font-family: Verdana red;
+    text-align: center;
+    font-size: larger;
+    font-weight: bold;
+}

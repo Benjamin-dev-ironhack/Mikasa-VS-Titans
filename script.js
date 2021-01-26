@@ -5,9 +5,9 @@ canvas.style.border = '2px solid black'
 
 let intervalId = 0
 let score = 0
-let startButton = document.querySelector('#StartButton')
-let loadPage = document.querySelector('#loadingPage')
-let playing = false
+let startBtn = document.getElementById('startButton')
+let loadPage = document.getElementById('loadingPage')
+//loadPage.style.display = 'none'
 let incrementPlayer = 8
 let playerX = 199
 let playerY = 630
@@ -17,11 +17,7 @@ let isAttackKey = false;
 //let isSpaceUp = false;
 
 let swords1 = []
-let titans = [{x: 50, y: 100}]
-for (let i = 0; i < titans.length; i++){
-    titans[i] = {x: 50, y: -100, status: 1}
-}
-
+let titans = [{x: 50, y: -100}]
 
 let welcomeImg = document.createElement('img')
 welcomeImg.src = '/images/welcome1.jpg'
@@ -76,6 +72,7 @@ function swords (){
         swords1[i].y--
     }
 }
+setInterval(swords, 50)
 
 function mikasa (){
     ctx.drawImage(player, playerX, playerY)
@@ -96,9 +93,9 @@ function titansFall () {
     //let constant = titan1.width + 100
     for (let i = 0; i < titans.length; i++) {
         ctx.drawImage(titan1, titans[i].x, titans[i].y)
-        //ctx.drawImage(titan2, titans[i].x + constant, titans[i].y)
+        //ctx.drawImage(titan2, titans[i].x + 100, titans[i].y)
         titans[i].y++
-        if (titans[i].y == canvas.height / 3){
+        if (titans[i].y == 100){
             titans.push({
                 x: Math.floor(Math.random() * (canvas.width - titan1.width)),
                 y: -50
@@ -109,23 +106,39 @@ function titansFall () {
 
 
 
-/*function titansCollision1 (){
+function titansCollision (){
     for (let i = 0; i < titans.length; i++){
-        if (titans[i].y + titansCollision1.height == canvas.height){
-            clearInterval(intervalId);
-            alert('gameover');
+        for (let j = 0; j < swords1.length; j++){
+            //console.log(swords1[j].x > titans[i].x && swords1[j].x + sword.width < titans[i].x + titan1.width)
+            //console.log(titans[i].y , titan1.height , canvas.height)
+            if (titans[i].y + titan1.height > canvas.height && (titans[i].y + titan1.height < 2500)){
+                clearInterval(intervalId)
+                location.reload()
+            }
+            else if ((swords1[j].x > titans[i].x && swords1[j].x + sword.width < titans[i].x + titan1.width) && 
+            (titans[i].y + titan1.height > swords1[j].y) ){
+                // TODO: remove the titan by splicing or changing th coordinates
+                // ze change the y of titan to 3000 to put it outside the canvas
+                // you must try splice here
+                titans[i].y = 3000 
+                swords1[j].y = 3000
+                score ++
+            }
         }
     }
-}*/
+    ctx.beginPath()
+    ctx.font = '30px Verdana red'
+    ctx.fillText('Score: ' + score, 10, 30)
+    ctx.fillStyle = '#571e1e'
+    ctx.closePath()
+}
 
 function loadingPage(){
-    ctx.loadPage
-    ctx.startButton
     draw()
     text()
 }
 
-function draw (){
+function draw(){
     ctx.drawImage(welcomeImg, 0, 0)
 }
 
@@ -162,16 +175,23 @@ function gamePlay (){
     titansFall()
     swords()
     mikasa()
+    titansCollision()
 }
 
+function startGame(){
+    canvas.style.display = 'block'
+    startBtn.style.display = 'none' 
+    loadPage.style.display = 'none'
+    intervalId = setInterval(() => {
+        requestAnimationFrame(gamePlay)
+    }, 30) 
+}
 
+window.addEventListener('load', () => {
+    canvas.style.display = 'none'
+    loadPage.style.display = 'block'
 
-intervalId = setInterval(() => {
-    //requestAnimationFrame(draw)
-    //requestAnimationFrame(text)
-    requestAnimationFrame(gamePlay)
-    //requestAnimationFrame(swords)
-    //requestAnimationFrame(mikasa)
-    //requestAnimationFrame(titansFall)
-    //requestAnimationFrame(titansCollision1)
-}, 200) 
+    startBtn.addEventListener('click', () => {
+        startGame()
+    })
+})
