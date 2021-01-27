@@ -12,18 +12,16 @@ The score is calculated on how many Titans you have killed.
 MVP (DOM-CANVAS) :
 
 - game have one character that move horizontally
-- the charracter launch swords up
-- the character have a melee attack
+- the character launch swords up
 - titans appear ramdomly from the top of the screen
 - one titan reaching the wall and the game is over
-- one sword slowdown a titan 
-- melee attack to kill the titan
+- one sword kill a titan 
 
 BACKLOG : 
 
--
--
--
+- melee attack to kill the titan
+- add scoreboard
+- sword attack make titan slowdown
 
 DATA STRUCTURE : 
 
