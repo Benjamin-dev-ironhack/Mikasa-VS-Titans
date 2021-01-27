@@ -21,20 +21,20 @@ let swords1 = []
 let titans = [{x: 50, y: -200}]
 
 let welcomeImg = document.createElement('img')
-welcomeImg.src = '/images/welcome1.jpg'
+welcomeImg.src = 'images/welcome1.jpg'
 
 let gamePage = document.createElement('img')
-gamePage.src = '/images/game pages.png'
+gamePage.src = 'images/game pages.png'
 let player = document.createElement('img')
-player.src = '/images/Mikasa.png'
+player.src = 'images/Mikasa.png'
 
 let titan1 = document.createElement('img')
-titan1.src = '/images/titan1.png'
+titan1.src = 'images/titan1.png'
 let titan2 = document.createElement('img')
-titan2.src = '/images/titan2.png'
+titan2.src = 'images/titan2.png'
 
 let sword = document.createElement('img')
-sword.src = '/images/sword.png'
+sword.src = 'images/sword.png'
 
 
 
@@ -108,16 +108,24 @@ function titansFall () {
 //else if ((swords1[j].x > titans[i].x && swords1[j].x + sword.width < titans[i].x + titan1.width) && 
 //            (titans[i].y + titan1.height > swords1[j].y) ){
 
+function titansReach(){
+    for (let i = 0; i < titans.length; i ++){
+        if (titans[i].y + titan1.height > canvas.height){
+            clearInterval(intervalId)
+            //alert('game over')
+            gameOver()
+        }    
+    }
+}
+
+
 function titansCollision (){
     for (let i = 0; i < titans.length; i++){
         for (let j = 0; j < swords1.length; j++){
-            if (titans[i].y + titan1.height > canvas.height){
-                clearInterval(intervalId)
-                //alert('game over')
-                gameOver()
-            }
-            else if ((swords1[j].x < titans[i].y + titan1.height && swords1[j].x + sword.width < titans[i].x + titan1.width + titan1.height) && 
+            if ((swords1[j].x < titans[i].y + titan1.height && swords1[j].x + sword.width < titans[i].x + titan1.width + titan1.height) && 
             (titans[i].y + titan1.height > swords1[j].y) ){
+                //titans[i].y = 3000
+                //swords1[i].y = 3000
                 titans.splice(i, 1)
                 swords1.splice(j, 1)
                 score ++
@@ -137,6 +145,7 @@ function gamePlay (){
     swords()
     mikasa()
     titansCollision()
+    titansReach()
 }
 
 function startGame(){
@@ -155,7 +164,7 @@ function gameOver(){
     loadPage.style.display = 'none'
     gameOverPage.style.display = 'block'
     restartBtn.addEventListener('click', () => {
-        startGame()
+        location.reload();
     })
 }
 
