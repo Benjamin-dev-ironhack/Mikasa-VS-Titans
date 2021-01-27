@@ -205,6 +205,7 @@ function gameOver(){
     restartBtn.addEventListener('click', () => {
         location.reload();
     })
+    document.querySelector('#total-kill span').innerHTML = score
 }
 
 window.addEventListener('load', () => {
