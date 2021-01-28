@@ -11,12 +11,14 @@ let gameOverPage = document.getElementById('gameOver')
 let restartBtn = document.getElementById('restartBtn')
 let incrementPlayer = 8
 let playerX = 199
-let playerY = 630
+let playerY = 610
 let isLeftArrow = false;
 let isRightArrow = false;
 let isAttackKey = false;
 let isMeleeAttackLeft = false;
 let isMeleeAttackRight = false;
+
+
 
 
 let swords1 = []
@@ -31,7 +33,7 @@ welcomeImg.src = 'images/welcome1.jpg'
 let gamePage = document.createElement('img')
 gamePage.src = 'images/game pages.png'
 let player = document.createElement('img')
-player.src = 'images/Mikasa.png'
+player.src = 'images/mikasa2.png'
 
 let titan1 = document.createElement('img')
 titan1.src = 'images/titan1.png'
@@ -71,9 +73,11 @@ document.addEventListener('keydown', (event) => {
     }
     else if (event.keycode == 38 || event.key == "ArrowUp"){
         isMeleeAttackLeft = true;
+        isMeleeAttackRight = false
     }
     else if (event.keycode == 40 || event.key == "ArrowDown"){
         isMeleeAttackRight = true;
+        isMeleeAttackLeft = false;
     }
 
 })
@@ -82,7 +86,7 @@ function alwaysTitans(){
     if (titans.length === 0){
         titans.push({
             x: Math.floor(Math.random() * (canvas.width - titan1.width)),
-            y: -400
+            y: -400,
         })
     } 
 }
@@ -110,14 +114,14 @@ function swords(){
 
 function meleeAttackLeft(){
     if (isMeleeAttackLeft){
-        ctx.drawImage(swordLeft, playerX -30, playerY)
+        ctx.drawImage(swordLeft, playerX, playerY + 20)
         isMeleeAttackLeft = true
     }
 }
 
 function meleeAttackRight(){
     if (isMeleeAttackRight){
-        ctx.drawImage(swordRight, playerX + 40, playerY)
+        ctx.drawImage(swordRight, x = playerX + 25, y = playerY + 20)
         isMeleeAttackRight = true
     }
 }
@@ -160,7 +164,7 @@ function titansFall2() {
             titans2.push({
                 x: Math.floor(Math.random() * (canvas.width - titan1.width)),
                 y: -450
-            }) * 2
+            }) 
         }  
     }
 }
@@ -217,26 +221,25 @@ function titansCollision2(){
     }
 }
 
-function swordLeftCollision(){
+function mikasaMeleeLeft(){
     for (let i = 0; i < titans.length; i++){
-            if ((swordLeft.x + swordLeft.width <= titans[i].x && swordLeft.x <=  titan1.width )&& 
-            (swordLeft.y <= titans.y + titan1.height)){
-                titans.splice(i, 1)
-                score ++
-            }
-    }
-}
-
-function swordRightCollision(){
-    for (let i = 0; i < titans.length; i++){
-        if ((swordRight.x > titans[i].x && swordRight.x + swordRight.width < titans[i].x + titan1.width + titan1.height) && 
-        (titans[i].y + titan1.height > swordRight.y) ){
+        if ((playerX > titans[i].x && playerX + player.width < titans[i].x + titan1.width + titan1.height) && 
+        (titans[i].y + titan1.height > playerY)  && (isMeleeAttackLeft === true)){
             titans.splice(i, 1)
             score ++
         }
     }
 }
 
+function mikasaMeleeRight(){
+    for (let i = 0; i < titans.length; i++){
+        if ((playerX > titans[i].x && playerX + player.width < titans[i].x + titan1.width + titan1.height) && 
+        (titans[i].y + titan1.height > playerY)  && (isMeleeAttackRight === true)){
+            titans.splice(i, 1)
+            score ++
+        }
+    }
+}
 
 function gamePlay (){
     ctx.drawImage(gamePage, 0, 0)
@@ -251,8 +254,8 @@ function gamePlay (){
     titansCollision2()
     titansReach2()
     alwaysTitans()
-    swordLeftCollision()
-    swordRightCollision()
+    mikasaMeleeLeft()
+    mikasaMeleeRight()
 }
 
 function startGame(){
