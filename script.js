@@ -15,11 +15,15 @@ let playerY = 630
 let isLeftArrow = false;
 let isRightArrow = false;
 let isAttackKey = false;
-//let isSpaceUp = false;
+let isMeleeAttackLeft = false;
+let isMeleeAttackRight = false;
+
 
 let swords1 = []
-let titans = [{x: 50, y: -300}]
-let titans2 = [{x: 200, y: -350}]
+let titans = [{x: 50, y: -400}]
+let titans2 = [{x: 200, y: -450}]
+let dy1 = 2
+let dx = -4
 
 let welcomeImg = document.createElement('img')
 welcomeImg.src = 'images/welcome1.jpg'
@@ -37,13 +41,19 @@ titan2.src = 'images/titan2.png'
 let sword = document.createElement('img')
 sword.src = 'images/sword.png'
 
+let swordLeft = document.createElement('img')
+swordLeft.src = 'images/sword melee L.png'
+
+let swordRight = document.createElement('img')
+swordRight.src = 'images/sword melee R.png'
 
 
 document.addEventListener('keyup', (event) => {
     isRightArrow = false;
     isLeftArrow = false;
-    isAttackKey = false
-    //isSpaceUp = false
+    isAttackKey = false;
+    isMeleeAttackLeft = false;
+    isMeleeAttackRight = false;
 })
 
 document.addEventListener('keydown', (event) => {
@@ -59,11 +69,34 @@ document.addEventListener('keydown', (event) => {
         isRightArrow = false;
         isLeftArrow = true;
     }
+    else if (event.keycode == 38 || event.key == "ArrowUp"){
+        isMeleeAttackLeft = true;
+    }
+    else if (event.keycode == 40 || event.key == "ArrowDown"){
+        isMeleeAttackRight = true;
+    }
 
 })
 
+function alwaysTitans(){
+    if (titans.length === 0){
+        titans.push({
+            x: Math.floor(Math.random() * (canvas.width - titan1.width)),
+            y: -400
+        })
+    } 
+}
 
-function swords (){
+function alwaysTitans2(){
+    if (titans2.length === 0){
+        titans2.push({
+            x: Math.floor(Math.random() * (canvas.width - titan1.width)),
+            y: -450
+        })
+    } 
+}
+
+function swords(){
     if (isAttackKey){
         swords1.push({x: playerX, y: playerY})
         isAttackKey = false
@@ -71,12 +104,25 @@ function swords (){
 
     for (let i = 0; i < swords1.length; i++){
         ctx.drawImage(sword, swords1[i].x, swords1[i].y)
-        swords1[i].y--
+        swords1[i].y += dx
     }
 }
-setInterval(swords, 50)
 
-function mikasa (){
+function meleeAttackLeft(){
+    if (isMeleeAttackLeft){
+        ctx.drawImage(swordLeft, playerX -30, playerY)
+        isMeleeAttackLeft = true
+    }
+}
+
+function meleeAttackRight(){
+    if (isMeleeAttackRight){
+        ctx.drawImage(swordRight, playerX + 40, playerY)
+        isMeleeAttackRight = true
+    }
+}
+
+function mikasa(){
     ctx.drawImage(player, playerX, playerY)
 
     if (isRightArrow && (playerX + player.width < canvas.width)) {
@@ -90,37 +136,34 @@ function mikasa (){
 
 }
 
-function titansFall () {
+function titansFall() {
 
     for (let i = 0; i < titans.length; i++) {
         ctx.drawImage(titan1, titans[i].x, titans[i].y)
         //ctx.drawImage(titan2, titans[i].x + 100, titans[i].y)
-        titans[i].y++
+        titans[i].y += dy1
         if (titans[i].y == -100){
             titans.push({
                 x: Math.floor(Math.random() * (canvas.width - titan1.width)),
-                y: -300
+                y: -400
             })
-        }    
+        }   
     }
 }
 
-function titansFall2 () {
+function titansFall2() {
 
     for (let i = 0; i < titans2.length; i++) {
-        ctx.drawImage(titan2, titans2[i].x , titans2[i].y)
-        titans2[i].y++
-        if (titans2[i].y == -150){
+        ctx.drawImage(titan2, titans2[i].x, titans2[i].y)
+        titans2[i].y++ 
+        if (titans2[i].y == -100){
             titans2.push({
-                x: Math.floor(Math.random() * (canvas.width - titan2.width)),
-                y: -350
-            })
-        }    
+                x: Math.floor(Math.random() * (canvas.width - titan1.width)),
+                y: -450
+            }) * 2
+        }  
     }
 }
-
-//else if ((swords1[j].x > titans[i].x && swords1[j].x + sword.width < titans[i].x + titan1.width) && 
-//            (titans[i].y + titan1.height > swords1[j].y) ){
 
 function titansReach(){
     for (let i = 0; i < titans.length; i ++){
@@ -161,7 +204,7 @@ function titansCollision (){
     ctx.closePath()
 }
 
-function titansCollision2 (){
+function titansCollision2(){
     for (let i = 0; i < titans2.length; i++){
         for (let j = 0; j < swords1.length; j++){
             if ((swords1[j].x > titans2[i].x && swords1[j].x + sword.width < titans2[i].x + titan2.width + titan2.height) && 
@@ -174,17 +217,42 @@ function titansCollision2 (){
     }
 }
 
+function swordLeftCollision(){
+    for (let i = 0; i < titans.length; i++){
+            if ((swordLeft.x + swordLeft.width <= titans[i].x && swordLeft.x <=  titan1.width )&& 
+            (swordLeft.y <= titans.y + titan1.height)){
+                titans.splice(i, 1)
+                score ++
+            }
+    }
+}
+
+function swordRightCollision(){
+    for (let i = 0; i < titans.length; i++){
+        if ((swordRight.x > titans[i].x && swordRight.x + swordRight.width < titans[i].x + titan1.width + titan1.height) && 
+        (titans[i].y + titan1.height > swordRight.y) ){
+            titans.splice(i, 1)
+            score ++
+        }
+    }
+}
+
 
 function gamePlay (){
     ctx.drawImage(gamePage, 0, 0)
+    titansFall2()
     titansFall()
     swords()
+    meleeAttackLeft()
+    meleeAttackRight()
     mikasa()
     titansCollision()
     titansReach()
-    titansFall2()
     titansCollision2()
     titansReach2()
+    alwaysTitans()
+    swordLeftCollision()
+    swordRightCollision()
 }
 
 function startGame(){
@@ -194,7 +262,7 @@ function startGame(){
     gameOverPage.style.display = 'none'
     intervalId = setInterval(() => {
         requestAnimationFrame(gamePlay)
-    }, 15) 
+    }, 30) 
 }
 
 function gameOver(){
