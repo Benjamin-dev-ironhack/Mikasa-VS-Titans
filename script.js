@@ -173,7 +173,6 @@ function titansReach(){
     for (let i = 0; i < titans.length; i ++){
         if (titans[i].y + titan1.height > canvas.height){
             clearInterval(intervalId)
-            //alert('game over')
             gameOver()
         }    
     }
@@ -183,7 +182,6 @@ function titansReach2(){
     for (let i = 0; i < titans2.length; i ++){
         if (titans2[i].y + titan2.height > canvas.height){
             clearInterval(intervalId)
-            //alert('game over')
             gameOver()
         }    
     }
@@ -223,8 +221,8 @@ function titansCollision2(){
 
 function mikasaMeleeLeft(){
     for (let i = 0; i < titans.length; i++){
-        if ((playerX > titans[i].x && playerX + player.width < titans[i].x + titan1.width + titan1.height) && 
-        (titans[i].y + titan1.height > playerY)  && (isMeleeAttackLeft === true)){
+        if ((playerX > titans[i].x && playerX + player.width < titans[i].x + titan1.width + titan1.height/2) && 
+        (titans[i].y + titan1.height/2 > playerY)  && (isMeleeAttackLeft === true)){
             titans.splice(i, 1)
             score ++
         }
@@ -233,13 +231,24 @@ function mikasaMeleeLeft(){
 
 function mikasaMeleeRight(){
     for (let i = 0; i < titans.length; i++){
-        if ((playerX > titans[i].x && playerX + player.width < titans[i].x + titan1.width + titan1.height) && 
-        (titans[i].y + titan1.height > playerY)  && (isMeleeAttackRight === true)){
+        if ((playerX + player.width > titans[i].x && playerX < titans[i].x + titan1.width/2) && 
+        (playerY < titans[i].y + titan1.height/2 && playerY + player.height > titans[i].y + titan1.height/2) && (isMeleeAttackRight === true)){
             titans.splice(i, 1)
             score ++
         }
     }
 }
+
+function mikasaVsReiner(){
+    for (let i = 0; i < titans2.length; i++){
+        if ((playerX > titans2[i].x && playerX + player.width < titans2[i].x + titan2.width + titan2.height) && 
+        (titans2[i].y + titan2.height/2 > playerY) ){
+            clearInterval(intervalId)
+            gameOver()
+        }
+    }
+}
+
 
 function gamePlay (){
     ctx.drawImage(gamePage, 0, 0)
@@ -256,6 +265,7 @@ function gamePlay (){
     alwaysTitans()
     mikasaMeleeLeft()
     mikasaMeleeRight()
+    mikasaVsReiner()
 }
 
 function startGame(){
