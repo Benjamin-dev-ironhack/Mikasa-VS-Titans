@@ -18,11 +18,11 @@ img {
     width: 190px;
     font-weight: bold;
     position: relative;
-    margin-top: 20px;
+    margin-top: 5px;
     margin-left: 155px;
 }
 
-h1 {
+.load {
     color: #8a2020;
     font-size: 50px;
     position: relative;
@@ -102,6 +102,7 @@ p {
     font-size: 40px;
     margin-bottom: 100px;
     color: white;
+    text-shadow: 4px 12px 8px rgba(0,0,0,1);
 }
 
 #gameOver h3 {
@@ -112,3 +113,17 @@ p {
     margin-bottom: 100px;
     color: white;
 }
+
+.game {
+    color: white;
+    font-size: 50px;
+    position: relative;
+    padding-left: 10px;
+    margin-top: 10px;
+    font-family: Verdana red;
+    text-shadow: 6px 4px 2px rgba(0,0,0,0.3);
+    background: linear-gradient(to right,rgb(240, 168, 12), #fa0b0b );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+}
+
