@@ -1,3 +1,9 @@
+body {
+    width: 600px;
+    height: 900px;
+    margin: 0 auto;
+}
+
 #loadingPage {
     height: 750px;
     width: 500px;
@@ -70,29 +76,18 @@ p {
 }
 
 #restartBtn {
-    color: white;
-    background-color: #8a2020;
+    color: black;
+    background-color: transparent; border: 0; 
+    text-shadow: 6px 4px 2px rgba(102,18,18,0.5);
     font-family: Verdana red;
-    font-size: larger;
+    font-size: 50px;
+    font-weight: bold;
     height: 50px;
-    width: 150px;
+    width: 300px;
     font-weight: 200px;
     position: relative;
     margin-top: 20px;
-    margin-left: 180px;
-}
-
-
-#gameOver h1 {
-    color: white;
-    font-size: 70px;
-    position: relative;
-    padding-left: 5px;
-    margin-top: 10px;
-    font-family: Verdana red;
-    text-align: center;
-    font-weight: bold;
-    margin-bottom: 100px;
+    margin-left: 105px;
 }
 
 #gameOver h2 {
@@ -102,24 +97,32 @@ p {
     font-size: 40px;
     margin-bottom: 100px;
     color: white;
-    text-shadow: 4px 12px 8px rgba(0,0,0,1);
+    text-shadow: 4px 12px 8px rgba(0,0,0,0.6);
+    background: linear-gradient(to right,rgb(238, 189, 85), #c71700 );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
 }
 
 #gameOver h3 {
     position: relative;
     text-align: center;
     font-family: Verdana red;
-    font-size: 40px;
+    font-size: 65px;
     margin-bottom: 100px;
-    color: white;
+    color: rgb(240, 12, 12);
+    background: linear-gradient(to bottom,rgb(240, 12, 12), #691307 );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    text-shadow: 2px 4px 2px rgba(0,0,0,0.2);
 }
 
 .game {
     color: white;
-    font-size: 50px;
+    font-size: 70px;
     position: relative;
-    padding-left: 10px;
+    padding-left: 30px;
     margin-top: 10px;
+    margin-bottom: 80px;
     font-family: Verdana red;
     text-shadow: 6px 4px 2px rgba(0,0,0,0.3);
     background: linear-gradient(to right,rgb(240, 168, 12), #fa0b0b );
