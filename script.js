@@ -36,20 +36,9 @@ gaming = new Audio('sounds/Gaming.mp3')
 over = new Audio('sounds/game-over.mp3')
 
 // Music theme
-swordLaunch = new Audio('sounds/sword-launch.wav')
+swordLaunch = new Audio('sounds/sword-launch .wav')
 melee = new Audio('sounds/melee-attack.wav')
-collision = new Audio('sounds/anime-punch-sound-effect-hd.mp3')
-
-
-function preload(){
-    intro;
-    over;
-    gaming;
-    melee;
-    swordLaunch;
-    collision;
-    
-}
+collision = new Audio('sounds/collision.mp3')
 
 
 // Creation of the images
@@ -321,6 +310,15 @@ function gameOver(){
 }
 
 window.addEventListener('load', () => {
+    function preload(){
+        intro;
+        over;
+        gaming;
+        melee;
+        swordLaunch;
+        collision;
+        
+    }    
     loadPage.style.display = 'block'
     over.pause()
     intro.play()
