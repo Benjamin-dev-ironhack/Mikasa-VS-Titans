@@ -30,16 +30,6 @@ let dy1 = 5
 let dy2 = 2
 let dx = -7
 
-// Sound effect
-intro = new Audio('sounds/Intro.mp3')
-gaming = new Audio('sounds/Gaming.mp3')
-over = new Audio('sounds/game-over.mp3')
-
-// Music theme
-swordLaunch = new Audio('sounds/sword-launch .wav')
-melee = new Audio('sounds/melee-attack.wav')
-collision = new Audio('sounds/collision.mp3')
-
 
 // Creation of the images
 let welcomeImg = document.createElement('img')
@@ -309,16 +299,18 @@ function gameOver(){
     document.querySelector('#total-kill span').innerHTML = score
 }
 
-window.addEventListener('load', () => {
-    function preload(){
-        intro;
-        over;
-        gaming;
-        melee;
-        swordLaunch;
-        collision;
-        
-    }    
+window.addEventListener('load', () => {  
+
+// MUsic theme
+intro = new Audio('sounds/Intro.mp3')
+gaming = new Audio('sounds/Gaming.mp3')
+over = new Audio('sounds/game-over.mp3')
+
+// Sound effect
+swordLaunch = new Audio('sounds/sword-launch .wav')
+melee = new Audio('sounds/melee-attack.wav')
+collision = new Audio('sounds/collision.mp3')
+
     loadPage.style.display = 'block'
     over.pause()
     intro.play()
