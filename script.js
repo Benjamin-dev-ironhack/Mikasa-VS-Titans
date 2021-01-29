@@ -279,7 +279,7 @@ function gamePlay (){
     gaming.play()
 
     titansFall2()
-    //titansFall1()
+    titansFall1()
     swords()
     meleeAttackLeft()
     meleeAttackRight()
@@ -287,7 +287,7 @@ function gamePlay (){
     titans1Collision()
     titansReach1()
     titansReach2()
-    //alwaysTitans1()
+    alwaysTitans1()
     alwaysTitans2()
     mikasaMeleeLeft()
     mikasaMeleeRight()
@@ -304,7 +304,7 @@ function startGame(){
     gameOverPage.style.display = 'none'
     intervalId = setInterval(() => {
         requestAnimationFrame(gamePlay)
-    }, 60) 
+    }, 30) 
 }
 
 function gameOver(){
